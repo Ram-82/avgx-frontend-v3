@@ -5,12 +5,12 @@ import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { TrendingUp, TrendingDown, RefreshCw, Info, DollarSign } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
-import { GlassCard } from "@/components/ui/glass-card";
-import { useAvgxIndex } from "@/hooks/use-avgx-index";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+// import { GlassCard } from "@/components/ui/glass-card";
+// import { useAvgxIndex } from "@/hooks/use-avgx-index";
+// import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { StabilityMetrics } from "@/components/index/stability-metrics";
-import { AvgxPriceChart } from "@/components/charts/avgx-price-chart";
-import { CurrencyBasket } from "@/components/index/currency-basket";
+// import { AvgxPriceChart } from "@/components/charts/avgx-price-chart";
+// import { CurrencyBasket } from "@/components/index/currency-basket";
 
 interface AvgxData {
   avgx_usd: number;
