@@ -25,6 +25,6 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "../../shared/**/*.ts" // This line needs to be added or fixed
-  ]
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
