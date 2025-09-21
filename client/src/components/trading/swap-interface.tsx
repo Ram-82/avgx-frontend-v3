@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { ArrowDown, RefreshCw, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
 import { GlassCard } from "@/components/ui/glass-card";
 import { useWallet } from "@/hooks/use-wallet";
 import { useAvgxIndex } from "@/hooks/use-avgx-index";
