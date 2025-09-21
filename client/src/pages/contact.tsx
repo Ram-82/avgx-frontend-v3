@@ -1,8 +1,8 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-// import { insertContactSchema, type InsertContact } from "@/shared/schema";
-import { insertContactSchema, type InsertContact } from "../../shared/schema"; 
+import { insertContactSchema, type InsertContact } from "@/shared/schema";
+// import { insertContactSchema, type InsertContact } from "../../shared/schema"; 
 import { GlassCard } from "@/components/ui/glass-card";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
