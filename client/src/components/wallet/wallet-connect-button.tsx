@@ -2,14 +2,12 @@ import { Button } from "@/components/ui/button";
 import { useWallet } from "@/hooks/use-wallet";
 import { Wallet } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { X } from "lucide-react";
 import { SetupGuide } from "./setup-guide";
-import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import React, { useState } from 'react';
 
 export const WalletConnectButton: React.FC = () => {
-  const { address, isConnected, isConnecting, connect, disconnect, error } = useWallet();
+  const { address, isConnected, isConnecting, connect, disconnect } = useWallet(); // 'error' is removed
   const [showSetupGuide, setShowSetupGuide] = useState(false);
 
   const handleConnect = async () => {
@@ -17,9 +15,9 @@ export const WalletConnectButton: React.FC = () => {
       await connect();
     } catch (err: any) {
       console.error('Connection error:', err);
-      
+
       // Show setup guide for various error conditions
-      if (err.message?.includes('MetaMask is not installed') || 
+      if (err.message?.includes('MetaMask is not installed') ||
           err.message?.includes('User rejected') ||
           err.message?.includes('Connection rejected') ||
           !window.ethereum) {
