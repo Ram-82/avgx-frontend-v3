@@ -208,7 +208,7 @@ export const addTokenToWallet = async (chain: SupportedChain) => {
 export const swapToAVGX = async (
   amount: string,
   // fromToken: 'ETH' | 'MATIC',
-  avgxPrice: number,
+  // avgxPrice: number,
   userAddress: string
 ): Promise<string> => {
   try {
