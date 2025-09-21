@@ -1,4 +1,4 @@
-import { useState } from "react";
+
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { insertContactSchema, type InsertContact } from "@/shared/schema";
@@ -11,11 +11,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useToast } from "@/hooks/use-toast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
-import { Mail, Globe, Send, Shield, ExternalLink } from "lucide-react";
+import { Mail, Globe, Send, Shield } from "lucide-react";
 
 const ContactPage = () => {
   const { toast } = useToast();
-  const queryClient = useQueryClient();
+  //const queryClient = useQueryClient();
 
   const form = useForm<InsertContact>({
     resolver: zodResolver(insertContactSchema),
