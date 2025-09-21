@@ -1,7 +1,6 @@
-
 import { useCallback, useEffect } from 'react';
 import { useWalletStore, type SupportedChain } from '@/stores/wallet-store';
-import { 
+import {
   connectWallet as web3ConnectWallet,
   disconnectWallet as web3DisconnectWallet,
   switchChain as web3SwitchChain,
@@ -17,6 +16,7 @@ export const useWallet = () => {
 
   // Listen for wallet events
   useEffect(() => {
+    // Explicitly define the event type as CustomEvent
     const handleAccountsChanged = async (event: CustomEvent) => {
       const accounts = event.detail;
       if (accounts.length === 0) {
@@ -28,6 +28,7 @@ export const useWallet = () => {
       }
     };
 
+    // Explicitly define the event type as CustomEvent
     const handleChainChanged = async (event: CustomEvent) => {
       const chainId = event.detail;
       walletStore.setChainId(chainId);
@@ -38,6 +39,10 @@ export const useWallet = () => {
       }
     };
 
+    // Use a type assertion to satisfy the EventListener type requirement
+    // The `as EventListener` assertion tells TypeScript that this function
+    // should be treated as a valid EventListener, even if its parameter type
+    // is more specific than the default `Event`.
     window.addEventListener('walletAccountsChanged', handleAccountsChanged as EventListener);
     window.addEventListener('walletChainChanged', handleChainChanged as EventListener);
 
