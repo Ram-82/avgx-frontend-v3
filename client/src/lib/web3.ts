@@ -207,7 +207,7 @@ export const addTokenToWallet = async (chain: SupportedChain) => {
 
 export const swapToAVGX = async (
   amount: string,
-  fromToken: 'ETH' | 'MATIC',
+  // fromToken: 'ETH' | 'MATIC',
   avgxPrice: number,
   userAddress: string
 ): Promise<string> => {
@@ -219,7 +219,7 @@ export const swapToAVGX = async (
     }
 
     // Calculate AVGX amount
-    const avgxAmount = (parseFloat(amount) / avgxPrice).toString();
+    // const avgxAmount = (parseFloat(amount) / avgxPrice).toString();
 
     // This is a simplified swap - in a real implementation, you'd interact with a DEX or custom contract
     const tx = await signer.sendTransaction({
