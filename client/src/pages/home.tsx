@@ -1,5 +1,5 @@
 
-import React from "react";
+// import React from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -17,11 +17,9 @@ import {
   Target,
   BarChart3,
   UserCheck,
-  MapPin,
   Zap,
   Building,
   Link as LinkIcon,
-  Calendar,
   Mail,
   ExternalLink
 } from "lucide-react";
