@@ -32,45 +32,42 @@ export const useWallet = () => {
     const handleChainChanged = async (event: CustomEvent) => {
       const chainId = event.detail;
       walletStore.setChainId(chainId);
-      
+
       if (walletStore.address) {
         const balances = await updateBalances(walletStore.address);
         walletStore.setBalance(balances);
       }
     };
 
-    // Use a type assertion to satisfy the EventListener type requirement
-    // The `as EventListener` assertion tells TypeScript that this function
-    // should be treated as a valid EventListener, even if its parameter type
-    // is more specific than the default `Event`.
-    window.addEventListener('walletAccountsChanged', handleAccountsChanged as EventListener);
-    window.addEventListener('walletChainChanged', handleChainChanged as EventListener);
+    // Fix: Use 'as unknown as EventListener' to resolve type conflicts
+    window.addEventListener('walletAccountsChanged', handleAccountsChanged as unknown as EventListener);
+    window.addEventListener('walletChainChanged', handleChainChanged as unknown as EventListener);
 
     return () => {
-      window.removeEventListener('walletAccountsChanged', handleAccountsChanged as EventListener);
-      window.removeEventListener('walletChainChanged', handleChainChanged as EventListener);
+      window.removeEventListener('walletAccountsChanged', handleAccountsChanged as unknown as EventListener);
+      window.removeEventListener('walletChainChanged', handleChainChanged as unknown as EventListener);
     };
   }, [walletStore]);
-  
+
   const connect = useCallback(async () => {
     walletStore.setConnecting(true);
     walletStore.setError(null);
-    
+
     try {
       const address = await web3ConnectWallet();
       walletStore.setConnected(true);
       walletStore.setAddress(address);
-      
+
       // Get current network info
       if (typeof window !== 'undefined' && window.ethereum) {
         const chainId = await window.ethereum.request({ method: 'eth_chainId' });
         walletStore.setChainId(parseInt(chainId, 16));
-        
+
         // Update balances
         const balances = await updateBalances(address);
         walletStore.setBalance(balances);
       }
-      
+
       toast({
         title: "Wallet Connected",
         description: "Successfully connected to your wallet",
@@ -87,7 +84,7 @@ export const useWallet = () => {
       walletStore.setConnecting(false);
     }
   }, [toast, walletStore]);
-  
+
   const disconnect = useCallback(() => {
     web3DisconnectWallet();
     walletStore.disconnect();
@@ -96,14 +93,14 @@ export const useWallet = () => {
       description: "Your wallet has been disconnected",
     });
   }, [toast, walletStore]);
-  
+
   const switchChain = useCallback(async (chain: SupportedChain) => {
     try {
       walletStore.setError(null);
       const result = await web3SwitchChain(chain);
       walletStore.setSelectedChain(chain);
       walletStore.setChainId(result.chainId);
-      
+
       // Update balances for new chain
       if (walletStore.address) {
         try {
@@ -113,7 +110,7 @@ export const useWallet = () => {
           console.warn('Failed to update balances after chain switch:', balanceError);
         }
       }
-      
+
       toast({
         title: "Chain Switched",
         description: `Successfully switched to ${chain === 'sepolia' ? 'Ethereum Sepolia' : 'Polygon Amoy'}`,
@@ -129,7 +126,7 @@ export const useWallet = () => {
       throw error;
     }
   }, [toast, walletStore]);
-  
+
   const addTokenToWallet = useCallback(async (chain: SupportedChain) => {
     try {
       await web3AddTokenToWallet(chain);
@@ -145,7 +142,7 @@ export const useWallet = () => {
       });
     }
   }, [toast]);
-  
+
   const swapToAVGX = useCallback(async (
     amount: string,
     fromToken: 'ETH' | 'MATIC',
@@ -162,11 +159,11 @@ export const useWallet = () => {
 
     try {
       const txHash = await web3SwapToAVGX(amount, fromToken, avgxPrice, walletStore.address);
-      
+
       // Update balances after swap
       const balances = await updateBalances(walletStore.address);
       walletStore.setBalance(balances);
-      
+
       toast({
         title: "Swap Successful",
         description: `Transaction hash: ${txHash.slice(0, 10)}...`,
@@ -181,7 +178,7 @@ export const useWallet = () => {
       throw error;
     }
   }, [toast, walletStore]);
-  
+
   return {
     ...walletStore,
     connect,
