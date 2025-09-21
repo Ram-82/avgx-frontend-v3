@@ -1,6 +1,6 @@
 import { ethers } from 'ethers';
 import { SUPPORTED_CHAINS, AVGX_TOKEN_ADDRESSES } from './constants';
-import { useWalletStore, type SupportedChain } from '@/stores/wallet-store';
+import { type SupportedChain } from '@/stores/wallet-store';
 
 let provider: ethers.BrowserProvider | null = null;
 let signer: ethers.JsonRpcSigner | null = null;
