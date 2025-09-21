@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { ArrowDown, RefreshCw, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
