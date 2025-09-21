@@ -17,11 +17,11 @@ import {
   ArrowDown,
   Info,
   Banknote,
-  RefreshCw
+  RefreshCw,
 } from "lucide-react";
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
-import { SetupGuide } from "@/components/wallet/setup-guide"; // Import the missing component
+import { SetupGuide } from "@/components/wallet/setup-guide";
 import { useWallet } from "@/hooks/use-wallet";
 
 interface CoinStatus {
@@ -54,7 +54,6 @@ const CoinPage = () => {
   // Mutation for simulating trades
   const tradeMutation = useMutation({
     mutationFn: async (tradeData: { type: 'mint' | 'redeem'; amount: number; chain: string }) => {
-      // Fix: Call the apiRequest function directly with method 'POST'
       return apiRequest('POST', '/api/coin/trade', tradeData);
     },
     onSuccess: (data: any) => {
@@ -88,22 +87,28 @@ const CoinPage = () => {
     tradeMutation.mutate({
       type: activeTab as 'mint' | 'redeem',
       amount: amountNum,
-      chain: selectedChain
+      chain: selectedChain,
     });
   };
 
   // Query hooks for real-time data
   const { data: coinStatus, isLoading: statusLoading } = useQuery<CoinStatus>({
     queryKey: ['/api/coin/status'],
-    // Fix: Call the apiRequest function directly with method 'GET'
-    queryFn: () => apiRequest('GET', '/api/coin/status'), 
+    // FIX: Specify the return type for the queryFn
+    queryFn: async (): Promise<CoinStatus> => {
+      const response = await apiRequest('GET', '/api/coin/status');
+      return response.json(); // Assuming apiRequest returns a Response object
+    },
     refetchInterval: 30000,
   });
 
   const { data: tradingStats, isLoading: statsLoading } = useQuery<TradingStats>({
     queryKey: ['/api/coin/stats'],
-    // Fix: Call the apiRequest function directly with method 'GET'
-    queryFn: () => apiRequest('GET', '/api/coin/stats'),
+    // FIX: Specify the return type for the queryFn
+    queryFn: async (): Promise<TradingStats> => {
+      const response = await apiRequest('GET', '/api/coin/stats');
+      return response.json(); // Assuming apiRequest returns a Response object
+    },
     refetchInterval: 60000,
   });
 
