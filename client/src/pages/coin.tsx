@@ -6,26 +6,22 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
-import { 
-  DollarSign, 
-  TrendingUp, 
-  Coins, 
-  Shield, 
-  Globe, 
+import {
+  DollarSign,
+  TrendingUp,
+  Coins,
+  Shield,
+  Globe,
   ArrowUpDown,
   ArrowUp,
   ArrowDown,
   Info,
   Banknote,
-  RefreshCw
+  RefreshCw,
 } from "lucide-react";
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
-import { SwapInterface } from "@/components/trading/swap-interface";
-import { ChainSelector } from "@/components/wallet/chain-selector";
-import { SetupGuide } from "@/components/wallet/setup-guide";
 import { useWallet } from "@/hooks/use-wallet";
-import { AVGX_TOKEN_ADDRESSES } from "@/lib/constants";
 
 interface CoinStatus {
   avgxIndex: number;
@@ -57,13 +53,8 @@ const CoinPage = () => {
   // Mutation for simulating trades
   const tradeMutation = useMutation({
     mutationFn: async (tradeData: { type: 'mint' | 'redeem'; amount: number; chain: string }) => {
-      return await apiRequest(`/api/coin/simulate-trade`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(tradeData),
-      });
+      // Corrected: use apiRequest.post with the correct API endpoint and data
+      return apiRequest.post('/api/coin/trade', tradeData);
     },
     onSuccess: (data: any) => {
       toast({
@@ -96,18 +87,20 @@ const CoinPage = () => {
     tradeMutation.mutate({
       type: activeTab as 'mint' | 'redeem',
       amount: amountNum,
-      chain: selectedChain
+      chain: selectedChain,
     });
   };
 
   // Query hooks for real-time data
   const { data: coinStatus, isLoading: statusLoading } = useQuery<CoinStatus>({
     queryKey: ['/api/coin/status'],
+    queryFn: () => apiRequest.get('/api/coin/status'),
     refetchInterval: 30000,
   });
 
   const { data: tradingStats, isLoading: statsLoading } = useQuery<TradingStats>({
     queryKey: ['/api/coin/stats'],
+    queryFn: () => apiRequest.get('/api/coin/stats'),
     refetchInterval: 60000,
   });
 
@@ -122,7 +115,7 @@ const CoinPage = () => {
           Neutral Global Digital Currency
         </h2>
         <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-8">
-          AVGX Coin is a digital asset pegged to the AVGX Index, providing a stable, neutral currency 
+          AVGX Coin is a digital asset pegged to the AVGX Index, providing a stable, neutral currency
           backed by a diversified basket of global currencies and digital assets.
         </p>
 
@@ -235,7 +228,7 @@ const CoinPage = () => {
                     </div>
                   )}
 
-                  <Button 
+                  <Button
                     onClick={handleTrade}
                     disabled={!amount || parseFloat(amount) <= 0 || tradeMutation.isPending}
                     className="w-full"
@@ -306,7 +299,7 @@ const CoinPage = () => {
                     </div>
                   )}
 
-                  <Button 
+                  <Button
                     onClick={handleTrade}
                     disabled={!amount || parseFloat(amount) <= 0 || tradeMutation.isPending}
                     className="w-full"
@@ -434,7 +427,7 @@ const CoinPage = () => {
             </div>
             <h4 className="text-xl font-semibold mb-3">Cross-Border Payments</h4>
             <p className="text-muted-foreground">
-              Instant, low-cost international transfers without volatility risk 
+              Instant, low-cost international transfers without volatility risk
               or dependency on any single currency.
             </p>
           </Card>
@@ -445,7 +438,7 @@ const CoinPage = () => {
             </div>
             <h4 className="text-xl font-semibold mb-3">Merchant Payments</h4>
             <p className="text-muted-foreground">
-              Accept stable digital payments without exposure to crypto volatility 
+              Accept stable digital payments without exposure to crypto volatility
               while serving global customers.
             </p>
           </Card>
@@ -456,7 +449,7 @@ const CoinPage = () => {
             </div>
             <h4 className="text-xl font-semibold mb-3">Store of Value</h4>
             <p className="text-muted-foreground">
-              A USD-free stablecoin alternative backed by a diversified 
+              A USD-free stablecoin alternative backed by a diversified
               global basket for long-term stability.
             </p>
           </Card>
