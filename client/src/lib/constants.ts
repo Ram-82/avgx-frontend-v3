@@ -8,9 +8,9 @@ const getSepoliaRPC = () => {
   return import.meta.env.VITE_SEPOLIA_RPC_URL || 'https://eth-sepolia.g.alchemy.com/v2/Mc7rl0E3u-NPYomkWMBPE';
 };
 
-const getMumbaiRPC = () => {
-  return import.meta.env.VITE_MUMBAI_RPC_URL || 'https://rpc-mumbai.maticvigil.com';
-};
+// const getMumbaiRPC = () => {
+//   return import.meta.env.VITE_MUMBAI_RPC_URL || 'https://rpc-mumbai.maticvigil.com';
+//};
 
 export const SUPPORTED_CHAINS = {
   sepolia: {
