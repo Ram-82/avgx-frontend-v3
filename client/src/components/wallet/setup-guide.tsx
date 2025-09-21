@@ -8,7 +8,7 @@ import {
   Monitor,
   Key,
 } from "lucide-react";
-import { FAUCET_URLS, API_KEY_INSTRUCTIONS } from "@/lib/rpc-config";
+import { FAUCET_URLS } from "@/lib/rpc-config";
 
 export const SetupGuide = () => {
   const openLink = (url: string) => {
