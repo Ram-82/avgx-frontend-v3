@@ -145,8 +145,8 @@ export const useWallet = () => {
 
   const swapToAVGX = useCallback(async (
     amount: string,
-    fromToken: 'ETH' | 'MATIC',
-    avgxPrice: number
+    //fromToken: 'ETH' | 'MATIC',
+    // avgxPrice: number
   ) => {
     if (!walletStore.address) {
       toast({
