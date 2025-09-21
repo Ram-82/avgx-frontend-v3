@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { ArrowDown, RefreshCw, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-
+// Removed unused imports from "@/components/ui/select"
 import { GlassCard } from "@/components/ui/glass-card";
 import { useWallet } from "@/hooks/use-wallet";
 import { useAvgxIndex } from "@/hooks/use-avgx-index";
@@ -17,13 +17,12 @@ interface SwapForm {
 }
 
 export const SwapInterface = () => {
-  const { 
-    isConnected, 
-    balance, 
-    selectedChain, 
-    swapToAVGX, 
-    switchChain 
-  } = useWallet();
+  const {
+    isConnected,
+    balance,
+    selectedChain,
+    swapToAVGX,
+  } = useWallet(); // `switchChain` is removed as it was unused
   const { indexData, isLoading: indexLoading } = useAvgxIndex();
   const { toast } = useToast();
   
@@ -54,7 +53,7 @@ export const SwapInterface = () => {
 
   // Calculate AVGX amount
   const avgxPrice = indexData?.value || 0;
-  const toAmount = fromAmount && avgxPrice 
+  const toAmount = fromAmount && avgxPrice
     ? (parseFloat(fromAmount) / avgxPrice).toFixed(6)
     : '';
 
@@ -137,7 +136,7 @@ export const SwapInterface = () => {
     return `Swap ${fromToken} to AVGX`;
   };
 
-  const isSwapDisabled = !isConnected || isSwapping || !fromAmount || 
+  const isSwapDisabled = !isConnected || isSwapping || !fromAmount ||
     parseFloat(fromAmount) <= 0 || parseFloat(fromAmount) > parseFloat(userBalance);
 
   return (
