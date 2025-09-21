@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(217, 45%, 8%);
+  --foreground: hsl(210, 40%, 98%);
+  --card: hsl(220, 35%, 14%);
+  --card-foreground: hsl(210, 40%, 98%);
+  --popover: hsl(217, 45%, 8%);
+  --popover-foreground: hsl(210, 40%, 98%);
+  --primary: hsl(174, 65%, 40%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(220, 35%, 14%);
+  --secondary-foreground: hsl(210, 40%, 98%);
+  --muted: hsl(218, 16%, 24%);
+  --muted-foreground: hsl(215, 16%, 57%);
+  --accent: hsl(262, 83%, 70%);
+  --accent-foreground: hsl(0, 0%, 100%);
+  --destructive: hsl(0, 63%, 57%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --border: hsl(217, 32%, 17%);
+  --input: hsl(220, 35%, 14%);
+  --ring: hsl(174, 65%, 40%);
+  
+  /* Custom AVGX colors */
+  --avgx-primary: hsl(217, 45%, 8%);
+  --avgx-secondary: hsl(220, 35%, 14%);
+  --avgx-accent-teal: hsl(174, 65%, 40%);
+  --avgx-accent-purple: hsl(262, 83%, 70%);
+  --avgx-text-primary: hsl(210, 40%, 98%);
+  --avgx-text-secondary: hsl(215, 16%, 57%);
+  
+  --font-sans: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --radius: 0.75rem;
+}
+
+.dark {
+  --background: hsl(217, 45%, 8%);
+  --foreground: hsl(210, 40%, 98%);
+  --card: hsl(220, 35%, 14%);
+  --card-foreground: hsl(210, 40%, 98%);
+  --popover: hsl(217, 45%, 8%);
+  --popover-foreground: hsl(210, 40%, 98%);
+  --primary: hsl(174, 65%, 40%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(220, 35%, 14%);
+  --secondary-foreground: hsl(210, 40%, 98%);
+  --muted: hsl(218, 16%, 24%);
+  --muted-foreground: hsl(215, 16%, 57%);
+  --accent: hsl(262, 83%, 70%);
+  --accent-foreground: hsl(0, 0%, 100%);
+  --destructive: hsl(0, 63%, 57%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --border: hsl(217, 32%, 17%);
+  --input: hsl(220, 35%, 14%);
+  --ring: hsl(174, 65%, 40%);
+}
+
+.light {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(217, 45%, 8%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(217, 45%, 8%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(217, 45%, 8%);
+  --primary: hsl(174, 65%, 40%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(210, 40%, 98%);
+  --secondary-foreground: hsl(217, 45%, 8%);
+  --muted: hsl(210, 40%, 98%);
+  --muted-foreground: hsl(215, 16%, 47%);
+  --accent: hsl(262, 83%, 70%);
+  --accent-foreground: hsl(0, 0%, 100%);
+  --destructive: hsl(0, 63%, 57%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --border: hsl(214, 32%, 91%);
+  --input: hsl(214, 32%, 91%);
+  --ring: hsl(174, 65%, 40%);
+  
+  /* Custom AVGX colors for light mode */
+  --avgx-primary: hsl(0, 0%, 100%);
+  --avgx-secondary: hsl(210, 40%, 98%);
+  --avgx-accent-teal: hsl(174, 65%, 40%);
+  --avgx-accent-purple: hsl(262, 83%, 70%);
+  --avgx-text-primary: hsl(217, 45%, 8%);
+  --avgx-text-secondary: hsl(215, 16%, 47%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: var(--font-sans);
+  }
+
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-card bg-opacity-80 backdrop-blur-md border border-white/10;
+  }
+
+  .neon-border {
+    box-shadow: 0 0 20px theme('colors.primary / 30%');
+  }
+
+  .chart-container {
+    background: linear-gradient(135deg, hsl(174, 65%, 40%, 0.1) 0%, hsl(262, 83%, 70%, 0.1) 100%);
+  }
+}
+
+@layer utilities {
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+}
+
+/* Header overlap fix - more specific and forceful */
+main {
+  padding-top: 5rem !important; /* 80px - adjusted for actual header height */
+}
+
+/* Additional spacing for containers */
+.container {
+  padding-top: 1rem !important;
+}
+
+/* Ensure body has no conflicting padding */
+body {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
