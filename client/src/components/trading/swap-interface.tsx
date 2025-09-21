@@ -102,7 +102,8 @@ export const SwapInterface = () => {
       setTransactionStatus('pending');
       setShowTransactionModal(true);
 
-      const txHash = await swapToAVGX(fromAmount, fromToken, avgxPrice);
+      //const txHash = await swapToAVGX(fromAmount, fromToken, avgxPrice);
+      const txHash = await swapToAVGX(fromAmount);
       setTransactionHash(txHash);
       setTransactionStatus('success');
       
