@@ -158,7 +158,8 @@ export const useWallet = () => {
     }
 
     try {
-      const txHash = await web3SwapToAVGX(amount, fromToken, avgxPrice, walletStore.address);
+      // const txHash = await web3SwapToAVGX(amount, fromToken, avgxPrice, walletStore.address);
+      const txHash = await web3SwapToAVGX(amount, walletStore.address);
 
       // Update balances after swap
       const balances = await updateBalances(walletStore.address);
